@@ -168,7 +168,9 @@
                         })
                     }).catch(e => console.log(e));
 
-                    elements.loaded.allBtn.textContent = 'Refresh';
+                    if(elements.loaded.body.innerHTML !== '') {
+                        elements.loaded.allBtn.textContent = 'Refresh';
+                    }
                 }
             })
             .catch(e => console.log(e));
