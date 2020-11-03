@@ -1,0 +1,38 @@
+body { 
+    width: 100%;
+    height:100%;
+    color: whitesmoke;
+    background-image: url('./images/istockphoto-1138395421-612x612.jpg');
+    background-size: cover;
+}
+
+.title {
+    text-align: center;
+}
+
+table {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+th, td {
+    border: 1px solid white;
+    padding: 10px;
+}
+
+.loaded-data {
+    text-align: center;
+}
+
+.create-data {
+    float: left;
+    margin-top: 10ch;
+    margin-left: 20ch;
+}
+
+.modify-data {
+    display: none;
+    float: right;
+    margin-top: 10ch;
+    margin-right: 20ch;
+}

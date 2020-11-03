@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="./style.css">
+    <title>MyPage</title>
+</head>
+<body>
+    <h1 class="title">Football Database</h1>
+    <div class="loaded-data">
+        <table>
+            <thead>
+                <tr>
+                    <th>Team</th>
+                    <th>Player</th>
+                    <th>Kit</th>
+                    <th>Goals</th>
+                    <th>Remove</th>
+                    <th>Update</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+        <input type="text" placeholder="Player name">
+        <button id="loadSingleBtn">Load Single Player</button>
+        <button id="loadAllBtn">Load All</button>
+    </div>
+    <div class="create-data">
+        <div>Football Team</div>
+        <input class="team" type="text">
+        <div>Player</div>
+        <input class="player" type="text">
+        <div>Kit Number</div>
+        <input class="kit" type="text">
+        <div>Goals Scored</div>
+        <input class="goals" type="text">
+        <div>
+            <button id="createBtn">Create</button>
+        </div>
+    </div>
+    <div class="modify-data">
+        <div>Football Team</div>
+        <input class="team" type="text">
+        <div>Player</div>
+        <input class="player" type="text">
+        <div>Kit Number</div>
+        <input class="kit" type="text">
+        <div>Goals Scored</div>
+        <input class="goals" type="text">
+        <div>
+            <button id="update">Update</button>
+        </div>
+    </div>
+    <script src="./main.js"></script>
+</body>
+</html>
