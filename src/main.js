@@ -149,7 +149,7 @@
         const kit = elements.create.kit.value;
         const goals = elements.create.goals.value;
 
-        if (!team || !player || !Number(kit) || !Number(goals)) {
+        if (!team || !player || !Number(kit) || (!Number(goals) && goals !== '0')) {
             return;
         }
 
