@@ -4,6 +4,7 @@ body {
     color: whitesmoke;
     background-image: url('./images/istockphoto-1138395421-612x612.jpg');
     background-size: cover;
+    font-style: italic;
 }
 
 .title {
@@ -15,7 +16,15 @@ table {
     margin-right: auto;
 }
 
-th, td {
+th {
+    border: 1px solid white;
+    padding: 10px;
+    background-color: rgb(117, 215, 245);
+    color: black;
+    font-weight: bold;
+}
+
+td {
     border: 1px solid white;
     padding: 10px;
 }
@@ -45,4 +54,11 @@ th, td {
 
 .invalidParams {
     color: red;
+}
+
+button {
+    background-color: rgb(117, 215, 245);
+    color: black;
+    font-weight: bold;
+    font-style: italic;
 }

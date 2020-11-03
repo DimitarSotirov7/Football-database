@@ -213,12 +213,12 @@
         goalsBody.setAttribute('class', 'goals');
         let deleteCell = document.createElement('td');
         let deleteBtn = document.createElement('button');
-        deleteBtn.textContent = 'Select';
+        deleteBtn.textContent = 'DEL';
         deleteBtn.setAttribute('class', 'deleteBtn');
         deleteCell.appendChild(deleteBtn);
         let updateCell = document.createElement('td');
         let updateBtn = document.createElement('button');
-        updateBtn.textContent = 'Select';
+        updateBtn.textContent = 'CHANGE';
         updateBtn.setAttribute('class', 'updateBtn');
         updateCell.appendChild(updateBtn);
         row.appendChild(teamBody);
