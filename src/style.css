@@ -36,3 +36,7 @@ th, td {
     margin-top: 10ch;
     margin-right: 20ch;
 }
+
+.invalidParams {
+    color: red;
+}

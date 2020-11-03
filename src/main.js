@@ -15,6 +15,7 @@
             kit: document.querySelector('.create-data .kit'),
             goals: document.querySelector('.create-data .goals'),
             btn: document.querySelector('.create-data #createBtn'),
+            invalidParams: document.querySelector('.create-data .invalidParams'),
         },
         modify: {
             data: document.querySelector('.modify-data'),
@@ -23,6 +24,7 @@
             kit: document.querySelector('.modify-data .kit'),
             goals: document.querySelector('.modify-data .goals'),
             btn: document.querySelector('.modify-data #update'),
+            invalidParams: document.querySelector('.modify-data .invalidParams'),
         }
     }
 
@@ -67,6 +69,16 @@
                         let player = elements.modify.player.value;
                         let kit = elements.modify.kit.value;
                         let goals = elements.modify.goals.value;
+
+                        let correctKit = Number(kit) || kit === '' || kit !== '0'? true : false;
+                        let correctGoals = Number(goals) || goals === '0' || goals === '' ? true : false;
+                        if (!correctKit || !correctGoals) {
+                            let message = 'Invalid parameters!';
+                            elements.modify.invalidParams.textContent = message;
+                            return;
+                        }
+                
+                        elements.modify.invalidParams.style.display = 'none';
 
                         let newData = {
                             team: team ? team : undefined,
@@ -150,8 +162,12 @@
         const goals = elements.create.goals.value;
 
         if (!team || !player || !Number(kit) || (!Number(goals) && goals !== '0')) {
+            let message = 'Invalid parameters!';
+            elements.create.invalidParams.textContent = message;
             return;
         }
+
+        elements.create.invalidParams.style.display = 'none';
 
         fetch(url + '.json')
             .then(r => r.json())
