@@ -3,7 +3,7 @@
 
     const elements = {
         loaded: {
-            table: document.querySelector('#loaded-table'),
+            table: document.querySelector('.loaded-data'),
             body: document.querySelector('.loaded-data tbody'),
             singleInput: document.querySelector('.loaded-data input'),
             singleBtn: document.querySelector('#loadSingleBtn'),
@@ -136,7 +136,12 @@
                 let row = createTableRow(record.team, record.player, record.kit, record.goals);
                 elements.loaded.body.appendChild(row);
             })
-            .catch(e => console.log(e));
+            .catch(e => {
+                let invalid = document.createElement('tr');
+                invalid.textContent = 'Player is missing';
+                invalid.style.color = 'red';
+                elements.loaded.body.appendChild(invalid);
+            });
 
         elements.loaded.singleInput.value = '';
     }
