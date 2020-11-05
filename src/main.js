@@ -61,7 +61,7 @@
                 })
                 .catch(e => console.log(e));
 
-            record.remove();
+            delRecord.remove();
 
         } else if (updRecord) {
             playerToModify = updRecord.querySelector('.player').textContent;
