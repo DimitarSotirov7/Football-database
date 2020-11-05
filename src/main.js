@@ -37,81 +37,89 @@
         if (e.target.nodeName !== 'BUTTON') {
             return;
         }
-
+        
         let btnClicked = e.target;
+        let delRecord = [...e.currentTarget
+            .querySelectorAll('tr')]
+            .find(r => r.querySelector('.deleteBtn') === btnClicked);
+        let updRecord = [...e.currentTarget
+            .querySelectorAll('tr')]
+            .find(r => r.querySelector('.updateBtn') === btnClicked);
 
-        let records = e.currentTarget
-            .querySelectorAll('tr')
-            .forEach(record => {
-                let delbtn = record.querySelector('.deleteBtn');
-                let updbtn = record.querySelector('.updateBtn');
-                let playerToModify = record.querySelector('.player').textContent;
+        let playerToModify = {};
+        let teamToModify = {};
 
-                if (delbtn === btnClicked) {
+        if (delRecord) {
+            playerToModify = delRecord.querySelector('.player').textContent;
 
-                    fetch(url + '.json')
-                        .then(r => r.json())
-                        .then(data => {
-                            let key = Object.keys(data).find(key => data[key].player === playerToModify);
-                            fetch(url + `${key}/.json`, { method: 'DELETE' })
-                                .catch(e => console.log(e));
-                        })
+            fetch(url + '.json')
+                .then(r => r.json())
+                .then(data => {
+                    let key = Object.keys(data).find(key => data[key].player === playerToModify);
+                    fetch(url + `${key}/.json`, { method: 'DELETE' })
                         .catch(e => console.log(e));
+                })
+                .catch(e => console.log(e));
 
-                    record.remove();
-                }
+            record.remove();
 
-                if (updbtn === btnClicked) {
+        } else if (updRecord) {
+            playerToModify = updRecord.querySelector('.player').textContent;
+            teamToModify = updRecord.querySelector('.team').textContent;
 
-                    elements.modify.data.style.display = 'block';
-                    elements.modify.btn.addEventListener('click', () => {
-                        let team = elements.modify.team.value;
-                        let player = elements.modify.player.value;
-                        let kit = elements.modify.kit.value;
-                        let goals = elements.modify.goals.value;
+            elements.modify.data.style.display = 'block';
 
-                        let correctKit = Number(kit) || kit === '' || Number(kit) > 0 ? true : false;
-                        let correctGoals = Number(goals) || goals === '0' || goals === '' || Number(goals) > 0 ? true : false;
-                        if (!correctKit || !correctGoals) {
-                            let message = 'Invalid parameters!';
-                            elements.modify.invalidParams.textContent = message;
-                            return;
-                        }
-                
-                        elements.modify.invalidParams.style.display = 'none';
+            elements.modify.btn.addEventListener('click', updateRecord);
+        }
 
-                        let newData = {
-                            team: team ? team : undefined,
-                            player: player ? player : undefined,
-                            kit: kit ? kit : undefined,
-                            goals: goals ? goals : undefined,
-                        };
+        function updateRecord() {
+            console.log(playerToModify);
+            let team = elements.modify.team.value;
+            let player = elements.modify.player.value;
+            let kit = elements.modify.kit.value;
+            let goals = elements.modify.goals.value;
 
-                        fetch(url + '.json')
-                            .then(r => r.json())
-                            .then(data => {
-                                let teamToModify = record.querySelector('.team').textContent;
-                                let key = Object.keys(data)
-                                    .find(key => data[key].player === playerToModify ||
-                                        data[key].team === teamToModify);
+            let correctKit = Number(kit) || kit === '' || Number(kit) > 0 ? true : false;
+            let correctGoals = Number(goals) || goals === '0' || goals === '' || Number(goals) > 0 ? true : false;
+            if (!correctKit || !correctGoals) {
+                let message = 'Invalid parameters!';
+                elements.modify.invalidParams.textContent = message;
+                return;
+            }
 
-                                fetch(url + `${key}/.json`, {
-                                    method: 'PATCH',
-                                    body: JSON.stringify(newData)
-                                }).catch(e => console.log(e));
-                            })
-                            .catch(e => console.log(e));
+            elements.modify.invalidParams.style.display = 'none';
 
-                        elements.modify.team.value = '';
-                        elements.modify.player.value = '';
-                        elements.modify.kit.value = '';
-                        elements.modify.goals.value = '';
-                        elements.modify.data.style.display = 'none';
+            fetch(url + '.json')
+                .then(r => r.json())
+                .then(data => {
 
-                        elements.loaded.allBtn.textContent = 'Refresh';
-                    });
-                }
-            });
+                    let key = Object.keys(data)
+                        .find(key => data[key].player === playerToModify ||
+                            data[key].team === teamToModify);
+
+                    let newData = {
+                        team: team ? team : data[key].team,
+                        player: player ? player : data[key].player,
+                        kit: kit ? kit : data[key].kit,
+                        goals: goals ? goals : data[key].goals,
+                    };
+
+                    fetch(url + `${key}/.json`, {
+                        method: 'PUT',
+                        body: JSON.stringify(newData)
+                    }).catch(e => console.log(e));
+                })
+                .catch(e => console.log(e));
+
+            elements.modify.team.value = '';
+            elements.modify.player.value = '';
+            elements.modify.kit.value = '';
+            elements.modify.goals.value = '';
+            elements.modify.data.style.display = 'none';
+
+            elements.loaded.allBtn.textContent = 'Refresh';
+            elements.modify.btn.removeEventListener('click', updateRecord);
+        }
     }
 
     function loadSingle() {
@@ -184,7 +192,7 @@
                         })
                     }).catch(e => console.log(e));
 
-                    if(elements.loaded.body.innerHTML !== '') {
+                    if (elements.loaded.body.innerHTML !== '') {
                         elements.loaded.allBtn.textContent = 'Refresh';
                     }
                 }
