@@ -83,12 +83,20 @@
             let kit = elements.modify.kit.value;
             let goals = elements.modify.goals.value;
 
-            let correctKit = Number(kit) || kit === '' || Number(kit) > 0 ? true : false;
-            let correctGoals = Number(goals) || goals === '0' || goals === '' || Number(goals) > 0 ? true : false;
-            if (!correctKit || !correctGoals) {
-                let message = 'Invalid parameters!';
-                elements.modify.invalidParams.textContent = message;
-                return;
+            if (kit !== '') {
+                if (!Number(kit) || Number(kit) <= 0) {
+                    let message = 'Invalid parameters!';
+                    elements.modify.invalidParams.textContent = message;
+                    return;
+                }
+            }
+
+            if (goals !== '') {
+                if ((!Number(goals) && goals !== '0') || Number(goals) < 0) {
+                    let message = 'Invalid parameters!';
+                    elements.modify.invalidParams.textContent = message;
+                    return;
+                }
             }
 
             elements.modify.invalidParams.style.display = 'none';
@@ -179,7 +187,13 @@
         const kit = elements.create.kit.value;
         const goals = elements.create.goals.value;
 
-        if (!team || !player || !Number(kit) || (!Number(goals) && goals !== '0') || Number(kit) <= 0 || Number(goals) < 0) {
+        if (team === '' || player === '' || kit === '' || goals === '') {
+            let message = 'Empty parameters!';
+            elements.create.invalidParams.textContent = message;
+            return;
+        }
+
+        if (!Number(kit) || (!Number(goals) && goals !== '0') || Number(kit) <= 0 || Number(goals) < 0) {
             let message = 'Invalid parameters!';
             elements.create.invalidParams.textContent = message;
             return;
