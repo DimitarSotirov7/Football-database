@@ -182,10 +182,12 @@
     }
 
     function createRecord() {
-        const team = elements.create.team.value;
-        const player = elements.create.player.value;
-        const kit = elements.create.kit.value;
-        const goals = elements.create.goals.value;
+        let team = elements.create.team.value;
+        let player = elements.create.player.value;
+        let kit = elements.create.kit.value;
+        let goals = elements.create.goals.value;
+
+        [team, player] = returnUpperCase([team, player]);
 
         if (team === '' || player === '' || kit === '' || goals === '') {
             let message = 'Empty parameters!';
@@ -260,5 +262,13 @@
         row.appendChild(deleteCell);
         row.appendChild(updateCell);
         return row;
+    }
+
+    function returnUpperCase(inputs) {
+        let modified = inputs.map(x => {
+            let firstLetter = x[0];
+            return x.replace(firstLetter, firstLetter.toUpperCase());
+        });
+        return modified;
     }
 })();
