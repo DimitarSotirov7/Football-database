@@ -93,7 +93,7 @@
                 .then(data => {
 
                     let key = Object.keys(data)
-                        .find(key => data[key].player === playerToModify ||
+                        .find(key => data[key].player === playerToModify &&
                             data[key].team === teamToModify);
 
                     let newData = {
