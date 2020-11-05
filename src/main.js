@@ -73,7 +73,6 @@
         }
 
         function updateRecord() {
-            console.log(playerToModify);
             let team = elements.modify.team.value;
             let player = elements.modify.player.value;
             let kit = elements.modify.kit.value;
