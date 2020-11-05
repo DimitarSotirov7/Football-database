@@ -50,6 +50,11 @@
         let teamToModify = {};
 
         if (delRecord) {
+
+            if (!confirm('Are you sure you want to delete this record?')) {
+                return;
+            }
+            
             playerToModify = delRecord.querySelector('.player').textContent;
 
             fetch(url + '.json')
