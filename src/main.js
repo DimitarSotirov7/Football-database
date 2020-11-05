@@ -54,7 +54,7 @@
             if (!confirm('Are you sure you want to delete this record?')) {
                 return;
             }
-            
+
             playerToModify = delRecord.querySelector('.player').textContent;
 
             fetch(url + '.json')
@@ -137,7 +137,8 @@
         fetch(url + '.json')
             .then(r => r.json())
             .then(data => {
-                let record = Object.values(data).find(x => x.player === playerName);
+                let record = Object.values(data)
+                    .find(x => x.player.toLowerCase() === playerName.toLowerCase());
                 let row = createTableRow(record.team, record.player, record.kit, record.goals);
                 elements.loaded.body.appendChild(row);
             })
